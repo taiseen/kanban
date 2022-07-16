@@ -6,11 +6,16 @@ import { useState } from 'react'
 
 const Card = ({ card, boardId }) => {
 
-    const { removeCard } = useBoardCardContext();
+    const { removeCard, handleDragEnd, handleDragEnter } = useBoardCardContext();
     const [showDropDown, setShowDropDown] = useState(false);
 
     return (
-        <section className='card bg-white rounded-md p-4 flex flex-col gap-4 group relative'>
+        <section
+            draggable
+            onDragEnd={() => handleDragEnd(boardId, card.id)}
+            onDragEnter={() => handleDragEnter(boardId, card.id)}
+            className='card bg-white rounded-md p-4 flex flex-col gap-4 group relative'
+        >
 
             {
                 card?.labels?.length > 0 &&

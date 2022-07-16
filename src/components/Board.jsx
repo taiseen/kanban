@@ -24,7 +24,7 @@ const Board = ({ board }) => {
                 </p>
 
                 {/* 🟥🟥🟥 For ==> Board Delete 🟥🟥🟥 */}
-                <div className='relative' onClick={() => setShowDropDown(pre => !pre)}>
+                <div className='relative z-10' onClick={() => setShowDropDown(pre => !pre)}>
                     <MoreHorizontal className='cursor-pointer' />
                     {
                         showDropDown &&

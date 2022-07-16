@@ -5,6 +5,8 @@ const BoardCardContext = createContext();
 
 export const BoardCardItem = ({ children }) => {
 
+    const [target, setTarget] = useState({ bid: '', cid: '' });
+
     const [boards, setBoards] = useState([
         {
             id: Date.now() + Math.random(),
@@ -12,40 +14,40 @@ export const BoardCardItem = ({ children }) => {
             cards: [
                 {
                     id: Date.now() + Math.random(),
-                    title: 'Card 1',
+                    title: 'HTML + CSS',
                     tasks: [],
                     labels: [
-                        { text: 'frontend', color: 'bg-blue-500' },
+                        { text: 'Frontend', color: 'bg-blue-500' },
                     ],
                     desc: 'This is testing',
-                    date: ''
+                    date: new Date().toISOString().split('T')[0],
                 },
                 {
                     id: Date.now() + Math.random(),
-                    title: 'Card 2',
+                    title: 'Figma Design',
                     tasks: [],
                     labels: [
                         { text: 'UI/UX', color: 'bg-orange-500' },
                     ],
                     desc: 'This is UI testing',
-                    date: ''
+                    date: new Date().toISOString().split('T')[0],
                 }
             ]
         }
         ,
         {
             id: Date.now() + Math.random() * 2,
-            title: 'Board 2',
+            title: 'WebDev',
             cards: [
                 {
                     id: Date.now() + Math.random(),
-                    title: 'Task going on',
+                    title: 'Backend',
                     tasks: [],
                     labels: [
-                        { text: 'React', color: 'bg-blue-500' },
+                        { text: 'NodeJs', color: 'bg-lime-600' },
                     ],
                     desc: 'This is testing',
-                    date: ''
+                    date: new Date().toISOString().split('T')[0],
                 },
 
             ]
@@ -63,9 +65,9 @@ export const BoardCardItem = ({ children }) => {
         const card = {
             id: Date.now() + Math.random(),
             title,
-            labels: [],
+            labels: [], // [{ text: 'git', color: 'bg-black' }]
             tasks: [],
-            date: '',
+            date: new Date().toISOString().split('T')[0],
             desc: ''
         }
 
@@ -81,7 +83,6 @@ export const BoardCardItem = ({ children }) => {
         tempBoard[boardIndex].cards.push(card);     // add  ==> new card into that copied board
         setBoards(tempBoard);                       // update ==> exiting board by this new copied board
     }
-
 
     const removeCard = (bid, cid) => {
 
@@ -100,6 +101,33 @@ export const BoardCardItem = ({ children }) => {
         setBoards(tempBoard);                               // update 
     }
 
+    const handleDragEnter = (bid, cid) => setTarget({ bid, cid });
+
+    const handleDragEnd = (bid, cid) => {
+        let s_bIndex, s_cIndex, d_bIndex, d_cIndex;
+
+        s_bIndex = boards?.findIndex(({ id }) => id === bid);
+        if (s_bIndex < 0) return console.log('source board idx');
+
+        s_cIndex = boards[s_bIndex]?.cards?.findIndex(({ id }) => id === cid);
+        if (s_cIndex < 0) return console.log('source card idx');
+
+        d_bIndex = boards?.findIndex(({ id }) => id === target.bid);
+        if (d_bIndex < 0) return console.log('destination board idx');
+
+        d_cIndex = boards[d_bIndex]?.cards?.findIndex(({ id }) => id === target.cid);
+        if (d_cIndex < 0) return console.log('destination card idx');
+
+        const tempBoard = [...boards];                              // copy all board's
+        const tempCard = tempBoard[s_bIndex].cards[s_cIndex];       // copy of that selected card
+
+        tempBoard[s_bIndex].cards.splice(s_cIndex, 1);              // remove that selected card from source board
+        tempBoard[d_bIndex].cards.splice(d_cIndex, 0, tempCard);    // add that coped card into destination board
+
+        setBoards(tempBoard)                                        // update boards
+    }
+
+
 
     return (
         <BoardCardContext.Provider value={{
@@ -108,6 +136,8 @@ export const BoardCardItem = ({ children }) => {
             removeBoard,
             addCard,
             removeCard,
+            handleDragEnd,
+            handleDragEnter,
         }}>
             {
                 children

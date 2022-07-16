@@ -10,7 +10,7 @@ const App = () => {
   return (
 
     // app holder
-    <main className='w-full h-screen flex flex-col bg-gray-100'>
+    <main className='w-full h-screen flex flex-col bg-gray-100 select-none'>
 
       <nav className='w-full px-5 py-8 border-b border-gray-3 00'>
         <h1 className='text-3xl font-extrabold tracking-wider'>Kanban Board</h1>

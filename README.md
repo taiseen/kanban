@@ -1,5 +1,5 @@
 > 15 -July - 2022
-## Kanban Board 
+## Kanban Board | [Live Link](www)
 
 # React + Tailwind
 
@@ -14,12 +14,14 @@
 |No| Context learn by building this project... | 
 |--|-------------------------------------------|
 | 1| Project Structure                         | 
-| 2| input autoFocus                           | 
-| 3| custom scroll bar styling in Tailwind     | 
+| 2| Input `autoFocus` attribute               | 
+| 3| Custom scroll bar styling in Tailwind     | 
 | 4| Component dynamic css styling passing     |
+| 5| Drag & Drop working functionality         |
+| 6| `draggable` + `onDragEnter` + `onDragEnd` attribute's  |
 
 
-# Project Main Data Structure
+## Project Main Data Structure
 ```
 Board = [
     {}, ****************** 1.1
@@ -98,7 +100,7 @@ Board = [
     ├───postcss.config.js
     ├───README.md
     ├───tailwind.config.js
-    ├───yarn.lock
+    └───yarn.lock
 ```
 
 
