@@ -1,4 +1,4 @@
-import { Board } from './components'
+import { Board, Editable } from './components'
 
 
 const App = () => {
@@ -14,16 +14,17 @@ const App = () => {
 
 
       <section className='flex-auto w-full overflow-x-auto p-4'>
-        <div className=' min-w-fit flex gap-8 '>
+        <div className=' min-w-fit h-full flex gap-8 '>
 
           <Board />
           <Board />
-          <Board />
-          <Board />
-          <Board />
-          <Board />
-          <Board />
-          
+
+          <div >
+            <Editable
+              text='+ Add Board'
+              placeHolder='Enter Board Title'
+            />
+          </div>
         </div>
       </section>
 

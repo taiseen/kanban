@@ -9,7 +9,7 @@ const Chip = ({ text, close, bgColor, onClose }) => {
         close &&
         <X
           className='w-5 h-5 cursor-pointer hover:text-red-500 duration-200'
-          onClick={onClose ? onClose() : ''}
+          onClick={() => onClose ? onClose() : ''}
         />
       }
 
