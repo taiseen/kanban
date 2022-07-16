@@ -1,7 +1,11 @@
-import { Board, Editable } from './components'
+import { useBoardCardContext } from './context/BoardCardContext';
+import { Board, Editable } from './components';
 
 
 const App = () => {
+
+  const { boards, addBoard } = useBoardCardContext();
+
 
   return (
 
@@ -14,17 +18,19 @@ const App = () => {
 
 
       <section className='flex-auto w-full overflow-x-auto p-4'>
-        <div className=' min-w-fit h-full flex gap-8 '>
+        <div className=' min-w-fit h-full flex space-x-4'>
+          {
+            boards?.map(board => <Board key={board.id} board={board} />)
+          }
 
-          <Board />
-          <Board />
-
-          <div >
+          <div>
             <Editable
               text='+ Add Board'
               placeHolder='Enter Board Title'
+              onSubmit={title => addBoard(title)}
             />
           </div>
+
         </div>
       </section>
 

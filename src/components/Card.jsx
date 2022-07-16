@@ -1,42 +1,54 @@
 import { CheckSquare, Clock, MoreHorizontal } from 'react-feather';
+import { useBoardCardContext } from '../context/BoardCardContext';
 import { Chip, DropDown } from '.';
 import { useState } from 'react'
 
 
-const Card = () => {
+const Card = ({ card, boardId }) => {
 
+    const { removeCard } = useBoardCardContext();
     const [showDropDown, setShowDropDown] = useState(false);
 
     return (
-        <section className='card bg-white rounded-md p-4 flex flex-col gap-4 group'>
+        <section className='card bg-white rounded-md p-4 flex flex-col gap-4 group relative'>
 
-            <div className='flex gap-2 items-center'>
-
+            {
+                card?.labels?.length > 0 &&
                 <div className="flex gap-2 flex-wrap flex-1">
-                    {/* <Chip text='frontend' color='green' bgColor='' /> */}
-                    <Chip text='frontend' color='green' bgColor='' close />
-                </div>
-
-                <div className='relative' onClick={() => setShowDropDown(pre => !pre)}>
-                    <MoreHorizontal className='opacity-0 duration-200 group-hover:opacity-100 cursor-pointer' />
                     {
-                        showDropDown &&
-                        <DropDown text='Delete Card' onClick={() => setShowDropDown(false)} />
+                        card?.labels?.map(({ text, color }, idx) =>
+                            <Chip key={idx} text={text} color={color} close />
+                        )
                     }
                 </div>
+            }
+
+
+            {/* 🟥🟥🟥 Fro ==> Card Delete 🟥🟥🟥 */}
+            <div className='absolute right-4' onClick={() => setShowDropDown(pre => !pre)}>
+                <MoreHorizontal className='opacity-0 duration-200 group-hover:opacity-100 cursor-pointer' />
+                {
+                    showDropDown &&
+                    <DropDown text='Delete Card' itemDelete={() => removeCard(boardId, card?.id)} />
+                }
             </div>
 
-            <div className='font-bold'>
-                Lorem ipsum dolor sit amet.
-            </div>
+
+            <div className='font-bold'>{card?.title}</div>
 
             <div className='flex items-center justify-between'>
-                <p className='flex items-center gap-1'><Clock className='w-4 inline' /> 15 Jul</p>
+                {
+                    card?.date &&
+                    <p className='flex items-center gap-1'><Clock className='w-4 inline' /> {card?.date}</p>
+                }
                 <p className='flex items-center gap-1'><CheckSquare className='w-4 inline' /> 1/4</p>
             </div>
 
-        </section>
+        </section >
     )
 }
 
 export default Card
+
+
+

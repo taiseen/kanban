@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
-const DropDown = ({ text, onClose }) => {
+const DropDown = ({ text, onClose, itemDelete }) => {
 
 
     const dropDownRef = useRef();
@@ -25,6 +25,7 @@ const DropDown = ({ text, onClose }) => {
     return (
         <div
             ref={dropDownRef}
+            onClick={() => itemDelete()}
             className='absolute top-full right-0 p-2 rounded-md shadow-xl bg-gray-200 font-bold w-32 text-center cursor-pointer hover:bg-red-200 duration-200'>
 
             {text}

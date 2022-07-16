@@ -1,9 +1,9 @@
 import { X } from 'react-feather'
 
-const Chip = ({ text, close, bgColor, onClose }) => {
+const Chip = ({ text, close, color, onClose }) => {
 
   return (
-    <div className={`${bgColor ? bgColor : 'bg-gray-400'} flex gap-1 items-center px-3 py-1 rounded-[40px] text-white w-fit`}>
+    <div className={`${color ? color : 'bg-gray-400'} flex gap-1 items-center px-4 py-1 rounded-[40px] text-white w-fit`}>
       {text}
       {
         close &&

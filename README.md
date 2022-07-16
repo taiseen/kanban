@@ -3,21 +3,27 @@
 
 # React + Tailwind
 
+## Yarn base packages...
+|No| Package Installs        | Use for                       |
+|--|-------------------------|-------------------------------|
+| 1| yarn add react-feather  | UI father icons               |
 
-yarn add react-feather
-https://feathericons.com
+[Feather Icons](https://feathericons.com)
 
-
-* custom scroll bar styling 
-* input autoFocus 
-* Component dynamic css styling passing
+## Learning context by developing this application:
+|No| Context learn by building this project... | 
+|--|-------------------------------------------|
+| 1| Project Structure                         | 
+| 2| input autoFocus                           | 
+| 3| custom scroll bar styling in Tailwind     | 
+| 4| Component dynamic css styling passing     |
 
 
 # Project Main Data Structure
 ```
 Board = [
-    {}, ******************
-    {}, ******************
+    {}, ****************** 1.1
+    {}, ****************** 1.2
 ]
 
 ===============================================
@@ -27,11 +33,11 @@ Board = [
         id : '101',
         title : 'Board Title',
         cards : [
-            {}, ******************
-            {}, ******************
+            {}, ****************** 2.1
+            {}, ****************** 2.2
         ]
     },
-    {}, ******************
+    {}, ****************** 1.2
 ]
 
 ===============================================
@@ -59,13 +65,14 @@ Board = [
                 desc : 'Add any descriptions',
                 date : new Date(),
             },
-            {}, ******************
+            {}, ****************** 2.2
         ]
     },
-    {}, ******************
+    {}, ****************** 1.2
 ]
 ```
 
+## Project Structure
 ```
     ├───public
     │   ├───index.html
@@ -93,3 +100,5 @@ Board = [
     ├───tailwind.config.js
     ├───yarn.lock
 ```
+
+

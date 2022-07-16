@@ -3,25 +3,38 @@ import { X } from 'react-feather'
 
 const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS }) => {
 
-    const [showEdit, setShowEdit] = useState(false)
+    const [showEdit, setShowEdit] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        
+        // user input value send...
+        if (onSubmit) onSubmit(inputValue);
+        
+        // reset at default state
+        setShowEdit(false);
+        setInputValue('');
+    }
+
 
     return (
         <div className='bg-white p-3 rounded-md text-center font-bold text-lg duration-200 '>
-
             {
                 showEdit
                     ? (
-                        <form onSubmit={e => {
-                            e.preventDefault();
-                            if (onSubmit) onSubmit();
-                        }}
+                        <form
+                            onSubmit={handleSubmit}
                             className={`${editCSS || ''} py-1`}
                         >
 
                             <input
                                 autoFocus
+                                required
                                 type="text"
-                                // defaultValue={text}
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
                                 placeholder={placeHolder || 'Enter Item'}
                                 className='outline-none px-2 py-1 w-full rounded-md border border-blue-400'
                             />
@@ -46,7 +59,6 @@ const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS })
                             {text || ''}
                         </p>
                     )
-
             }
         </div >
     )
