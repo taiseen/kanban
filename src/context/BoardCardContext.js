@@ -57,7 +57,9 @@ export const BoardCardItem = ({ children }) => {
 
     const addBoard = title => setBoards(pre => [...pre, { id: Date.now() + Math.random(), title, cards: [] }]);
 
+
     const removeBoard = bid => setBoards(pre => pre.filter(({ id }) => id !== bid))
+
 
     const addCard = (title, bid) => {
 
@@ -74,7 +76,6 @@ export const BoardCardItem = ({ children }) => {
 
         // 🟩🟩🟩 2nd Find 🔎 that specific Board index, for enter ==> the Newly Created Card. 
         const boardIndex = boards.findIndex(({ id }) => id === bid);
-        console.log(boardIndex)
         if (boardIndex < 0) return; // IF no board found, return nothing...
 
 
@@ -83,6 +84,7 @@ export const BoardCardItem = ({ children }) => {
         tempBoard[boardIndex].cards.push(card);     // add  ==> new card into that copied board
         setBoards(tempBoard);                       // update ==> exiting board by this new copied board
     }
+
 
     const removeCard = (bid, cid) => {
 
@@ -101,22 +103,24 @@ export const BoardCardItem = ({ children }) => {
         setBoards(tempBoard);                               // update 
     }
 
+
     const handleDragEnter = (bid, cid) => setTarget({ bid, cid });
+
 
     const handleDragEnd = (bid, cid) => {
         let s_bIndex, s_cIndex, d_bIndex, d_cIndex;
 
         s_bIndex = boards?.findIndex(({ id }) => id === bid);
-        if (s_bIndex < 0) return console.log('source board idx');
+        if (s_bIndex < 0) return;
 
         s_cIndex = boards[s_bIndex]?.cards?.findIndex(({ id }) => id === cid);
-        if (s_cIndex < 0) return console.log('source card idx');
+        if (s_cIndex < 0) return;
 
         d_bIndex = boards?.findIndex(({ id }) => id === target.bid);
-        if (d_bIndex < 0) return console.log('destination board idx');
+        if (d_bIndex < 0) return;
 
         d_cIndex = boards[d_bIndex]?.cards?.findIndex(({ id }) => id === target.cid);
-        if (d_cIndex < 0) return console.log('destination card idx');
+        if (d_cIndex < 0) return;
 
         const tempBoard = [...boards];                              // copy all board's
         const tempCard = tempBoard[s_bIndex].cards[s_cIndex];       // copy of that selected card
@@ -126,7 +130,6 @@ export const BoardCardItem = ({ children }) => {
 
         setBoards(tempBoard)                                        // update boards
     }
-
 
 
     return (

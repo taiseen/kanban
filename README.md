@@ -1,27 +1,29 @@
 > 15 -July - 2022
-## Kanban Board | [Live Link](www)
+## Kanban Board | [Live Link](https://kanban-bd.netlify.app)
 
 # React + Tailwind
 
 ## Yarn base packages...
-|No| Package Installs        | Use for                       |
-|--|-------------------------|-------------------------------|
-| 1| yarn add react-feather  | UI father icons               |
+|No| Package Installs          | Use for                  |
+|--|---------------------------|--------------------------|
+| 1| `yarn add` react-feather  | UI father icons          |
 
 [Feather Icons](https://feathericons.com)
+
 
 ## Learning context by developing this application:
 |No| Context learn by building this project... | 
 |--|-------------------------------------------|
 | 1| Project Structure                         | 
-| 2| Input `autoFocus` attribute               | 
-| 3| Custom scroll bar styling in Tailwind     | 
-| 4| Component dynamic css styling passing     |
-| 5| Drag & Drop working functionality         |
-| 6| `draggable` + `onDragEnter` + `onDragEnd` attribute's  |
+| 2| Full Mobile Responsiveness                | 
+| 3| Input `autoFocus` attribute               | 
+| 4| Custom scroll bar styling in Tailwind     | 
+| 5| Component dynamic css styling passing     |
+| 6| Drag & Drop working functionality         |
+| 7| `draggable` + `onDragEnter` + `onDragEnd` attribute's  |
 
 
-## Project Main Data Structure
+## Project Data Structure
 ```
 Board = [
     {}, ****************** 1.1

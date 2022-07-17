@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { X } from 'react-feather'
 
-const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS }) => {
+const AddBtn = ({ text, placeHolder, btnText, onSubmit, editCSS, bgHover, width, initValue }) => {
 
     const [showEdit, setShowEdit] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -9,10 +9,10 @@ const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS })
 
     const handleSubmit = e => {
         e.preventDefault();
-        
+
         // user input value send...
         if (onSubmit) onSubmit(inputValue);
-        
+
         // reset at default state
         setShowEdit(false);
         setInputValue('');
@@ -20,15 +20,20 @@ const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS })
 
 
     return (
-        <div className='bg-white p-3 rounded-md text-center font-bold text-lg duration-200 '>
+        <div
+            className={`bg-white rounded-md text-center font-bold text-lg cursor-pointer duration-200 
+            ${width || ' border hover:border-dashed hover:border-gray-500'} 
+            ${width && 'bg-gray-200 rounded'} 
+            ${bgHover || ''} `}
+            onClick={e => { e.stopPropagation() }}
+        >
             {
                 showEdit
                     ? (
                         <form
                             onSubmit={handleSubmit}
-                            className={`${editCSS || ''} py-1`}
+                            className={`${editCSS || ''} p-3`}
                         >
-
                             <input
                                 autoFocus
                                 required
@@ -54,9 +59,9 @@ const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS })
                     : (
                         <p
                             onClick={() => setShowEdit(true)}
-                            className={`cursor-pointer w-60 ${dynamicCSS || ''}`}
+                            className={`${width || 'w-60'} p-3`}
                         >
-                            {text || ''}
+                            {initValue ? initValue : text || ''}
                         </p>
                     )
             }
@@ -64,4 +69,4 @@ const Editable = ({ text, placeHolder, btnText, onSubmit, editCSS, dynamicCSS })
     )
 }
 
-export default Editable
+export default AddBtn

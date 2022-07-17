@@ -1,6 +1,6 @@
 import { useBoardCardContext } from '../context/BoardCardContext';
 import { MoreHorizontal } from 'react-feather'
-import { Card, Editable, DropDown } from '.';
+import { Card, AddBtn, DropDown } from '.';
 import { useState } from 'react';
 
 
@@ -11,7 +11,7 @@ const Board = ({ board }) => {
 
 
     return (
-        <section className='w-80 p-4 bg-white flex flex-col gap-5 rounded-md '>
+        <section className='w-80 p-4 bg-white flex flex-col gap-5 rounded-md'>
 
             {/* Board Head */}
             <div className='flex items-center text-gray-800'>
@@ -41,9 +41,10 @@ const Board = ({ board }) => {
                 {
                     board?.cards?.map(card => <Card key={card.id} card={card} boardId={board?.id} />)
                 }
-                <Editable
+                <AddBtn
                     text='+ Add Card'
                     placeHolder='Enter Card Title'
+                    bgHover='hover:bg-[#efe]'
                     onSubmit={title => addCard(title, board.id)}
                 />
             </div>
