@@ -39,13 +39,13 @@ const Board = ({ board }) => {
             {/* 🟨🟨🟨 Board Body & Loop Card Array + Add Card Btn 🟨🟨🟨 */}
             <div className='customScroll bg-gray-200 rounded-md p-2 flex flex-col gap-2 overflow-y-auto'>
                 {
-                    board?.cards?.map(card => <Card key={card.id} card={card} boardId={board?.id} />)
+                    board?.cards?.map(card => <Card key={card?.id} card={card} boardId={board?.id} />)
                 }
                 <AddBtn
                     text='+ Add Card'
                     placeHolder='Enter Card Title'
                     bgHover='hover:bg-[#efe]'
-                    onSubmit={title => addCard(title, board.id)}
+                    onSubmit={title => addCard(title, board?.id)}
                 />
             </div>
 

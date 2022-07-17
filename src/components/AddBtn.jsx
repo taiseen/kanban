@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { X } from 'react-feather'
 
-const AddBtn = ({ text, placeHolder, btnText, onSubmit, editCSS, bgHover, width, initValue }) => {
+const AddBtn = ({ text, placeHolder, btnText, onSubmit, bgHover, width, defaultData, initValue }) => {
 
     const [showEdit, setShowEdit] = useState(false);
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(defaultData || '');
 
 
     const handleSubmit = e => {
@@ -32,14 +32,14 @@ const AddBtn = ({ text, placeHolder, btnText, onSubmit, editCSS, bgHover, width,
                     ? (
                         <form
                             onSubmit={handleSubmit}
-                            className={`${editCSS || ''} p-3`}
+                            className={`p-3`}
                         >
                             <input
                                 autoFocus
                                 required
                                 type="text"
                                 value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
+                                onChange={e => setInputValue(e.target.value)}
                                 placeholder={placeHolder || 'Enter Item'}
                                 className='outline-none px-2 py-1 w-full rounded-md border border-blue-400'
                             />

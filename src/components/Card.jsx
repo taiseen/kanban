@@ -25,7 +25,7 @@ const Card = ({ card, boardId }) => {
                 <div className="flex gap-2 flex-wrap flex-1">
                     {
                         card?.labels?.map(({ text, color }, idx) =>
-                            <Chip key={idx} text={text} color={color} close />
+                            <Chip key={idx} text={text} color={color} />
                         )
                     }
                 </div>
@@ -48,15 +48,27 @@ const Card = ({ card, boardId }) => {
 
             <div className='flex items-center justify-between'>
                 {
-                    card?.date &&
-                    <p className='flex items-center gap-1'><Clock className='w-4 inline' /> {card?.date}</p>
+                      card?.date &&
+                    <p className='flex items-center gap-1'>
+                        <Clock className='w-4 inline' />
+                        {card?.date}
+                    </p>
                 }
-                <p className='flex items-center gap-1'><CheckSquare className='w-4 inline' /> 1/4</p>
+
+                {
+                    card?.tasks?.length > 0 &&
+                    <p className='flex items-center gap-1'>
+                        <CheckSquare className='w-4 inline' />
+                        {card?.tasks?.filter(({ completed }) => completed).length}
+                        /
+                        {card?.tasks?.length}
+                    </p>
+                }
             </div>
 
             {
                 showModal &&
-                <CardInfoModal setShowModal={setShowModal} card={card}/>
+                <CardInfoModal setShowModal={setShowModal} card={card} boardId={boardId} />
             }
         </section >
     )

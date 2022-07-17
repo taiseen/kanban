@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const BoardCardContext = createContext();
 
@@ -7,52 +7,53 @@ export const BoardCardItem = ({ children }) => {
 
     const [target, setTarget] = useState({ bid: '', cid: '' });
 
-    const [boards, setBoards] = useState([
-        {
-            id: Date.now() + Math.random(),
-            title: 'To Do',
-            cards: [
-                {
-                    id: Date.now() + Math.random(),
-                    title: 'HTML + CSS',
-                    tasks: [],
-                    labels: [
-                        { text: 'Frontend', color: 'bg-blue-500' },
-                    ],
-                    desc: 'This is testing',
-                    date: new Date().toISOString().split('T')[0],
-                },
-                {
-                    id: Date.now() + Math.random(),
-                    title: 'Figma Design',
-                    tasks: [],
-                    labels: [
-                        { text: 'UI/UX', color: 'bg-orange-500' },
-                    ],
-                    desc: 'This is UI testing',
-                    date: new Date().toISOString().split('T')[0],
-                }
-            ]
-        }
-        ,
-        {
-            id: Date.now() + Math.random() * 2,
-            title: 'WebDev',
-            cards: [
-                {
-                    id: Date.now() + Math.random(),
-                    title: 'Backend',
-                    tasks: [],
-                    labels: [
-                        { text: 'NodeJs', color: 'bg-lime-600' },
-                    ],
-                    desc: 'This is testing',
-                    date: new Date().toISOString().split('T')[0],
-                },
+    const [boards, setBoards] = useState(JSON.parse(localStorage.getItem('kanban')) ||
+        [
+            {
+                id: Date.now() + Math.random(),
+                title: 'To Do',
+                cards: [
+                    {
+                        id: Date.now() + Math.random(),
+                        title: 'HTML + CSS',
+                        tasks: [],
+                        labels: [
+                            { text: 'Frontend', color: 'bg-blue-500' },
+                        ],
+                        desc: 'This is testing',
+                        date: new Date().toISOString().split('T')[0],
+                    },
+                    {
+                        id: Date.now() + Math.random(),
+                        title: 'Figma Design',
+                        tasks: [],
+                        labels: [
+                            { text: 'UI/UX', color: 'bg-orange-500' },
+                        ],
+                        desc: 'This is UI testing',
+                        date: new Date().toISOString().split('T')[0],
+                    }
+                ]
+            }
+            ,
+            {
+                id: Date.now() + Math.random() * 2,
+                title: 'WebDev',
+                cards: [
+                    {
+                        id: Date.now() + Math.random(),
+                        title: 'Backend',
+                        tasks: [],
+                        labels: [
+                            { text: 'NodeJs', color: 'bg-lime-600' },
+                        ],
+                        desc: 'This is testing',
+                        date: new Date().toISOString().split('T')[0],
+                    },
 
-            ]
-        }
-    ]);
+                ]
+            }
+        ]);
 
 
     const addBoard = title => setBoards(pre => [...pre, { id: Date.now() + Math.random(), title, cards: [] }]);
@@ -104,6 +105,21 @@ export const BoardCardItem = ({ children }) => {
     }
 
 
+    const updateCard = (bid, cid, card) => {
+        // 🟥🟥🟥 1st ==> 🔎 Find the Board index
+        const boardIndex = boards.findIndex(({ id }) => id === bid);
+        if (boardIndex < 0) return console.log('board error'); // IF no board found, return nothing...
+
+        // 🟥🟥🟥 2nd ==> 🔎 Find the Card index
+        const cardIndex = boards[boardIndex].cards.findIndex(({ id }) => id === cid);
+        if (cardIndex < 0) return console.log('card error'); // IF no card found, return nothing...
+
+        const tempBoard = [...boards];                      // copy 
+        tempBoard[boardIndex].cards[cardIndex] = card;      // replace / update that specific card
+        setBoards(tempBoard);                               // update state variable
+    }
+
+
     const handleDragEnter = (bid, cid) => setTarget({ bid, cid });
 
 
@@ -132,12 +148,17 @@ export const BoardCardItem = ({ children }) => {
     }
 
 
+    // store all data in local storage
+    useEffect(() => localStorage.setItem('kanban', JSON.stringify(boards)), [boards]);
+
+
     return (
         <BoardCardContext.Provider value={{
             boards,
             addBoard,
             removeBoard,
             addCard,
+            updateCard,
             removeCard,
             handleDragEnd,
             handleDragEnter,
