@@ -48,7 +48,7 @@ const Card = ({ card, boardId }) => {
 
             <div className='flex items-center justify-between'>
                 {
-                      card?.date &&
+                    card?.date &&
                     <p className='flex items-center gap-1'>
                         <Clock className='w-4 inline' />
                         {card?.date}

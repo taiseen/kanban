@@ -59,7 +59,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
         // 1st | remove from array 
         const afterRemoveLabel = values?.labels?.filter(item => item.text !== text)
 
-        // 2ns | update start variable
+        // 2ns | update state variable
         setValues({ ...values, labels: afterRemoveLabel });
     }
 
@@ -231,7 +231,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                                             type="checkbox"
                                             defaultValue={item.completed}
                                             className='w-4 h-4 cursor-pointer'
-                                            onChange={(e) => updateTask(item.id, e.target.checked)}
+                                            onChange={e => updateTask(item.id, e.target.checked)}
                                         />
                                         <p className='text-lg'>{item.text}</p>
                                         <Trash

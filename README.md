@@ -46,15 +46,15 @@ Board = [
 
 ===============================================
 
-Board = [
+BoardList = [
     {
         id : '101',
-        title : 'Board Title',
+        title : 'BoardList Title',
         cards : [
             {
                 id : '202',
                 title : 'Card Title',
-                labels : [
+                tags : [
                     {
                         text : Frontend,
                         color : 'green',

@@ -106,13 +106,14 @@ export const BoardCardItem = ({ children }) => {
 
 
     const updateCard = (bid, cid, card) => {
+
         // 🟥🟥🟥 1st ==> 🔎 Find the Board index
         const boardIndex = boards.findIndex(({ id }) => id === bid);
-        if (boardIndex < 0) return console.log('board error'); // IF no board found, return nothing...
+        if (boardIndex < 0) return; // IF no card found, return nothing...
 
         // 🟥🟥🟥 2nd ==> 🔎 Find the Card index
         const cardIndex = boards[boardIndex].cards.findIndex(({ id }) => id === cid);
-        if (cardIndex < 0) return console.log('card error'); // IF no card found, return nothing...
+        if (cardIndex < 0) return; // IF no card found, return nothing...
 
         const tempBoard = [...boards];                      // copy 
         tempBoard[boardIndex].cards[cardIndex] = card;      // replace / update that specific card
@@ -122,7 +123,7 @@ export const BoardCardItem = ({ children }) => {
 
     const handleDragEnter = (bid, cid) => setTarget({ bid, cid });
 
-
+    
     const handleDragEnd = (bid, cid) => {
         let s_bIndex, s_cIndex, d_bIndex, d_cIndex;
 
