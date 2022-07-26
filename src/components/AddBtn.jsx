@@ -8,6 +8,7 @@ const AddBtn = ({ text, placeHolder, btnText, onSubmit, bgHover, width, defaultD
 
 
     const handleSubmit = e => {
+        // prevent auto refresh page by button click
         e.preventDefault();
 
         // user input value send...

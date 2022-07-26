@@ -1,12 +1,16 @@
-> 15 -July - 2022
+<img src="./public/readme.png" style='width:180px' align="right" />
+
+> 15 - July - 2022
 ## Kanban Board | [Live Link](https://kanban-bd.netlify.app)
 
 # React + Tailwind
 
 ## Yarn base packages...
-|No| Package Installs          | Use for                  |
-|--|---------------------------|--------------------------|
-| 1| `yarn add` react-feather  | UI father icons          |
+|No| Package Installs               | Use for                  |
+|--|--------------------------------|--------------------------|
+| 1| `yarn add` react-feather       | UI father icons          |
+| 2| `yarn add` react-confirm-alert | Confirm Dialog Box       |
+
 
 [Feather Icons](https://feathericons.com)
 
@@ -21,6 +25,9 @@
 | 5| Component dynamic css styling passing     |
 | 6| Drag & Drop working functionality         |
 | 7| `draggable` + `onDragEnter` + `onDragEnd` attribute's  |
+| 8| Confirm Dialog Box with customization UI  |
+| 9| `Esc` Key press Event Listener For Closing Modal |
+
 
 
 ## Project Data Structure
@@ -77,18 +84,20 @@ BoardList = [
 ```
 
 ## Project Structure
-```
+```jsx
     ├───public
     │   ├───index.html
-    │   └───kanban.ico
+    │   ├───kanban.ico
+    │   └───readme.png
     │
     ├───src
     │   ├───components
+    │   │   ├───AddBtn.jsx
     │   │   ├───Board.jsx
     │   │   ├───Card.jsx
+    │   │   ├───CardInfoModal.jsx
     │   │   ├───Chip.jsx
-    │   │   ├───DropDown.jsx
-    │   │   ├───Editable.jsx
+    │   │   ├───DeleteDropDown.jsx
     │   │   └───index.js
     │   │
     │   ├───style

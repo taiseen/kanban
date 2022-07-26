@@ -101,6 +101,24 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
     useEffect(() => updateCard(boardId, card.id, values), [values, boardId, card.id, updateCard]);
 
 
+    // user esc key press Event Listener for closing modal... 
+    //-------------------------------------------------------------------
+    // Inside useEffect declares a function that handle a keydown event & 
+    // checks if the escape key was pressed. 
+    // Then it binds that event handler to the document. 🟩
+    //-------------------------------------------------------------------
+    // When the component is removed, 
+    // it cleans up by removing the event handler from the document. 🟥
+    useEffect(() => {
+        const handleEscapeKeyPress = e => {
+            if (e.code === 'Escape') setShowModal(false);
+        }
+
+        document.addEventListener('keydown', handleEscapeKeyPress);
+        return () => document.removeEventListener('keydown', handleEscapeKeyPress);
+    }, [setShowModal])
+
+
 
     return (
         <section

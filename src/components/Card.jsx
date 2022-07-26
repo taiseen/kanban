@@ -1,6 +1,6 @@
 import { CheckSquare, Clock, MoreHorizontal } from 'react-feather';
 import { useBoardCardContext } from '../context/BoardCardContext';
-import { Chip, DropDown, CardInfoModal } from '.';
+import { Chip, DeleteDropDown, CardInfoModal } from '.';
 import { useState } from 'react'
 
 
@@ -8,7 +8,8 @@ const Card = ({ card, boardId }) => {
 
     const { removeCard, handleDragEnd, handleDragEnter } = useBoardCardContext();
     const [showModal, setShowModal] = useState(false);
-    const [showDropDown, setShowDropDown] = useState(false);
+    const [showDeleteDropDown, setShowDeleteDropDown] = useState(false);
+
 
 
     return (
@@ -17,7 +18,7 @@ const Card = ({ card, boardId }) => {
             onClick={() => setShowModal(true)}
             onDragEnd={() => handleDragEnd(boardId, card.id)}
             onDragEnter={() => handleDragEnter(boardId, card.id)}
-            className='card bg-white rounded-md p-4 flex flex-col gap-4 group relative hover:bg-[#efe] duration-200'
+            className='card bg-white rounded-md p-4 flex flex-col gap-4 group relative hover:bg-[#efe] duration-200 active:cursor-grab'
         >
 
             {
@@ -35,11 +36,14 @@ const Card = ({ card, boardId }) => {
             {/* 🟥🟥🟥 Fro ==> Card Delete 🟥🟥🟥 */}
             <div
                 className='absolute right-4'
-                onClick={(e) => { e.stopPropagation(); setShowDropDown(pre => !pre) }}>
+                onClick={(e) => { e.stopPropagation(); setShowDeleteDropDown(pre => !pre) }}>
                 <MoreHorizontal className='opacity-0 duration-200 group-hover:opacity-100 cursor-pointer' />
                 {
-                    showDropDown &&
-                    <DropDown text='Delete Card' itemDelete={() => removeCard(boardId, card?.id)} />
+                    showDeleteDropDown &&
+                    <DeleteDropDown
+                        text='Delete Card'
+                        itemDelete={() => removeCard(boardId, card?.id)}
+                    />
                 }
             </div>
 
