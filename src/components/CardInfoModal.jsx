@@ -7,11 +7,10 @@ import { AddBtn, Chip } from '.';
 const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
     const { updateCard } = useBoardCardContext();
-    // const { id, title, desc, labels, date, tasks } = card;
 
     // convert Props >>> into >>> State
+    // const { id, title, desc, labels, date, tasks } = card;
     const [values, setValues] = useState({ ...card });
-
     const [activeColor, setActiveColor] = useState('');
     const [colors] = useState([
         'bg-red-600',
@@ -21,8 +20,6 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
         'bg-violet-500',
         'bg-pink-500',
         'bg-indigo-900',
-
-        // '#cf61a1',
         // '#240959', // these color system not working...
     ])
 
@@ -97,8 +94,8 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
 
 
-    // CardInfo Modal Data Update
-    useEffect(() => updateCard(boardId, card.id, values), [values, boardId, card.id, updateCard]);
+    // CardInfo Modal Data Update when user input new data...
+    useEffect(() => updateCard(boardId, card.id, values), [boardId, card.id, values]);
 
 
     // user esc key press Event Listener for closing modal... 
@@ -116,14 +113,15 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
         document.addEventListener('keydown', handleEscapeKeyPress);
         return () => document.removeEventListener('keydown', handleEscapeKeyPress);
-    }, [setShowModal])
+    }, [setShowModal]);
 
 
 
     return (
         <section
             className='fixed top-0 right-0 left-0 bottom-0 p-4 z-20 bg-black/50 grid place-items-center'
-        // onClick={e => { e.stopPropagation(); setShowModal(false) }}
+            // onClick={e => { e.stopPropagation(); setShowModal(false) }}
+            // if we add this then any click inside it close this modal
         >
             <div className='bg-white w-full md:w-[650px] h-[80vh] overflow-y-auto relative rounded-lg customScroll'>
 
@@ -174,7 +172,8 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                         <input
                             type="date"
                             defaultValue={values?.date ? new Date(values?.date).toISOString().substring(0, 10) : ''}
-                            onChange={e => setValues({ ...values, date: e.target.value })}
+                            // defaultValue={values?.date ? new Date(values?.date) : ''}
+                            onChange={e => setValues({ ...values, date: e.target.value.split('-').reverse().join('-') })}
                             className='p-3 border outline-none border-gray-400 rounded'
                         />
                     </div>
@@ -231,15 +230,25 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                             <CheckSquare /> <span className='text-2xl font-bold'>Tasks</span>
                         </div>
 
-                        {/* Progressbar */}
-                        <div className='h-2.5 w-full rounded-md border border-gray-500 mx-2 mb-4'>
-                            <div
-                                style={{ width: calculatePercentage() + '%' }}
-                                className={`h-full rounded-md 
-                                ${values.tasks.length !== 0 && 'bg-blue-500'} 
-                                ${calculatePercentage() >= 100 && 'bg-green-600'} `}
-                            />
-                        </div>
+                        {
+                            // ProgressBar with Percentage Number
+                            values?.tasks?.length > 0 &&
+                            <div className='h-2.5 w-full rounded-md border border-gray-500 mx-2 mb-4'>
+                                <div
+                                    style={{ width: calculatePercentage() + '%' }}
+                                    className={`h-full rounded-md text-right relative
+                                    ${values.tasks.length !== 0 && 'bg-blue-500'} 
+                                    ${calculatePercentage() >= 100 && 'bg-green-600'} `}
+                                >
+                                    <span className='absolute text-sm font-bold -top-5 right-0'>
+                                        {
+                                            calculatePercentage() > 5 &&
+                                            calculatePercentage().toFixed() + '%'
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                        }
 
                         <div className='space-y-2 mb-4'>
                             {
@@ -247,7 +256,8 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                                     <div className='flex items-center gap-4 px-2' key={item.id}>
                                         <input
                                             type="checkbox"
-                                            defaultValue={item.completed}
+                                            value={item.completed}
+                                            checked={item.completed}
                                             className='w-4 h-4 cursor-pointer'
                                             onChange={e => updateTask(item.id, e.target.checked)}
                                         />

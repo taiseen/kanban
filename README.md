@@ -6,13 +6,12 @@
 # React + Tailwind
 
 ## Yarn base packages...
-|No| Package Installs               | Use for                  |
-|--|--------------------------------|--------------------------|
-| 1| `yarn add` react-feather       | UI father icons          |
-| 2| `yarn add` react-confirm-alert | Confirm Dialog Box       |
+|No| Package Installs               | Use for                       |
+|--|--------------------------------|-------------------------------|
+| 1| `yarn add` react-feather       | [Feather icons at UI][link]   |
+| 2| `yarn add` react-confirm-alert | Confirm Dialog Box            |
 
-
-[Feather Icons](https://feathericons.com)
+[link]: https://feathericons.com
 
 
 ## Learning context by developing this application:
@@ -29,6 +28,36 @@
 | 9| `Esc` Key press Event Listener For Closing Modal |
 
 
+## Project Structure
+```jsx
+    ├───public
+    │   ├───index.html
+    │   ├───kanban.ico
+    │   └───readme.png
+    │
+    ├───src
+    │   ├───components
+    │   │   ├───AddBtn.jsx
+    │   │   ├───Board.jsx
+    │   │   ├───Card.jsx
+    │   │   ├───CardInfoModal.jsx
+    │   │   ├───Chip.jsx
+    │   │   ├───DeleteDropDown.jsx
+    │   │   └───index.js
+    │   │
+    │   ├───style
+    │   │   └───index.css
+    │   │
+    │   ├───App.js
+    │   └───index.js
+    │   
+    ├───.gitignore
+    ├───package.json
+    ├───postcss.config.js
+    ├───README.md
+    ├───tailwind.config.js
+    └───yarn.lock
+```
 
 ## Project Data Structure
 ```
@@ -82,36 +111,3 @@ BoardList = [
     {}, ****************** 1.2
 ]
 ```
-
-## Project Structure
-```jsx
-    ├───public
-    │   ├───index.html
-    │   ├───kanban.ico
-    │   └───readme.png
-    │
-    ├───src
-    │   ├───components
-    │   │   ├───AddBtn.jsx
-    │   │   ├───Board.jsx
-    │   │   ├───Card.jsx
-    │   │   ├───CardInfoModal.jsx
-    │   │   ├───Chip.jsx
-    │   │   ├───DeleteDropDown.jsx
-    │   │   └───index.js
-    │   │
-    │   ├───style
-    │   │   └───index.css
-    │   │
-    │   ├───App.js
-    │   └───index.js
-    │   
-    ├───.gitignore
-    ├───package.json
-    ├───postcss.config.js
-    ├───README.md
-    ├───tailwind.config.js
-    └───yarn.lock
-```
-
-

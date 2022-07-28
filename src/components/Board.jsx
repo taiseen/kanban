@@ -1,22 +1,39 @@
 import { useBoardCardContext } from '../context/BoardCardContext';
+import { useEffect, useRef, useState } from 'react';
 import { Card, AddBtn, DeleteDropDown } from '.';
 import { MoreHorizontal } from 'react-feather'
-import { useState } from 'react';
 
 
 const Board = ({ board }) => {
 
+    const dropDownRef = useRef();
     const { removeBoard, addCard } = useBoardCardContext();
     const [showDeleteDropDown, setShowDeleteDropDown] = useState(false);
+
+
+    // for closing drop down, have no button, so for auto close, need this mechanism 
+    // when we click outside or drop down little window, then drop down will be close.
+    // so that outer click listen by this handleClick function
+    const handleClick = e => {
+        // 🧐🧐🧐 track out-side of click... & ❌❌❌ close this div...
+        if (!dropDownRef?.current?.contains(e.target)) setShowDeleteDropDown(false);
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClick);
+        // unMounting time, remove this eventListener
+        return () => document.removeEventListener('click', handleClick);
+    }, []);
+
 
 
     return (
         <section className='w-80 p-4 bg-white flex flex-col gap-5 rounded-md'>
 
             {/* Board Head */}
-            <div className='flex items-center'>
+            <div className='flex items-center justify-between'>
 
-                <p className='flex-1 text-xl font-bold'>
+                <p className='text-xl font-bold'>
                     {board?.title} &nbsp;
                     <span className='text-gray-400'>
                         {board?.cards?.length}
@@ -24,14 +41,15 @@ const Board = ({ board }) => {
                 </p>
 
                 {/* 🟥🟥🟥 For ==> Board Delete 🟥🟥🟥 */}
-                <div className='relative z-10' onClick={() => setShowDeleteDropDown(pre => !pre)}>
-                    <MoreHorizontal className='cursor-pointer' />
+                <div
+                    ref={dropDownRef}
+                    className='relative z-10'
+                    onClick={() => setShowDeleteDropDown(pre => !pre)} // by clicking On/Off toggling...
+                >
+                    <MoreHorizontal className='cursor-pointer hover:text-red-600 duration-200' />
                     {
                         showDeleteDropDown &&
-                        <DeleteDropDown
-                            text='Delete Board'
-                            itemDelete={() => removeBoard(board?.id)}
-                        />
+                        <DeleteDropDown text='Board' itemDelete={() => removeBoard(board?.id)} />
                     }
                 </div>
 

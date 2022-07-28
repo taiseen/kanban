@@ -21,7 +21,7 @@ export const BoardCardItem = ({ children }) => {
                             { text: 'Frontend', color: 'bg-blue-500' },
                         ],
                         desc: 'This is testing',
-                        date: new Date().toISOString().split('T')[0],
+                        date: new Date().toISOString().split('T')[0], // .split('-').reverse().join('-')
                     },
                     {
                         id: Date.now() + Math.random(),
@@ -31,7 +31,7 @@ export const BoardCardItem = ({ children }) => {
                             { text: 'UI/UX', color: 'bg-orange-500' },
                         ],
                         desc: 'This is UI testing',
-                        date: new Date().toISOString().split('T')[0],
+                        date: new Date().toISOString().split('T')[0], // .split('-').reverse().join('-')
                     }
                 ]
             }
@@ -64,23 +64,23 @@ export const BoardCardItem = ({ children }) => {
 
     const addCard = (title, bid) => {
 
-        // 🟩🟩🟩 1st coming data from user ==> Create a new card
+        // 🟩🟩🟩 1st | coming data from user ==> Create a new card
         const card = {
             id: Date.now() + Math.random(),
             title,
             labels: [], // [{ text: 'git', color: 'bg-black' }]
             tasks: [],
-            date: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString().split('T')[0], // .split('-').reverse().join('-')
             desc: ''
         }
 
 
-        // 🟩🟩🟩 2nd Find 🔎 that specific Board index, for enter ==> the Newly Created Card. 
+        // 🟩🟩🟩 2nd | Find 🔎 that specific Board index, for enter ==> the Newly Created Card. 
         const boardIndex = boards.findIndex(({ id }) => id === bid);
         if (boardIndex < 0) return; // IF no board found, return nothing...
 
 
-        // 🟩🟩🟩 3rd update the Card inside a specific Board
+        // 🟩🟩🟩 3rd | update the Card inside a specific Board
         const tempBoard = [...boards];              // copy ==> total old board 
         tempBoard[boardIndex].cards.push(card);     // add  ==> new card into that copied board
         setBoards(tempBoard);                       // update ==> exiting board by this new copied board
@@ -123,7 +123,7 @@ export const BoardCardItem = ({ children }) => {
 
     const handleDragEnter = (bid, cid) => setTarget({ bid, cid });
 
-    
+
     const handleDragEnd = (bid, cid) => {
         let s_bIndex, s_cIndex, d_bIndex, d_cIndex;
 

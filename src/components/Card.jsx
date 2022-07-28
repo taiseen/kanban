@@ -1,15 +1,30 @@
 import { CheckSquare, Clock, MoreHorizontal } from 'react-feather';
 import { useBoardCardContext } from '../context/BoardCardContext';
 import { Chip, DeleteDropDown, CardInfoModal } from '.';
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 
 const Card = ({ card, boardId }) => {
 
+    const dropDownRef = useRef();
     const { removeCard, handleDragEnd, handleDragEnter } = useBoardCardContext();
-    const [showModal, setShowModal] = useState(false);
     const [showDeleteDropDown, setShowDeleteDropDown] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
+
+    // for closing drop down, have no button, so for auto close, need this mechanism 
+    // when we click outside or drop down little window, then drop down will be close.
+    // so that outer click listen by this handleClick function
+    const handleClick = e => {
+        // 🧐🧐🧐 track out-side of click... & ❌❌❌ close this div...
+        if (!dropDownRef?.current?.contains(e.target)) setShowDeleteDropDown(false);
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClick);
+        // unMounting time, remove this eventListener
+        return () => document.removeEventListener('click', handleClick);
+    }, []);
 
 
     return (
@@ -35,15 +50,14 @@ const Card = ({ card, boardId }) => {
 
             {/* 🟥🟥🟥 Fro ==> Card Delete 🟥🟥🟥 */}
             <div
-                className='absolute right-4'
-                onClick={(e) => { e.stopPropagation(); setShowDeleteDropDown(pre => !pre) }}>
-                <MoreHorizontal className='opacity-0 duration-200 group-hover:opacity-100 cursor-pointer' />
+                ref={dropDownRef}
+                className='absolute right-4 '
+                onClick={e => { e.stopPropagation(); setShowDeleteDropDown(pre => !pre) }}
+            >
+                <MoreHorizontal className='opacity-0 duration-200 group-hover:opacity-100 cursor-pointer hover:text-red-600' />
                 {
                     showDeleteDropDown &&
-                    <DeleteDropDown
-                        text='Delete Card'
-                        itemDelete={() => removeCard(boardId, card?.id)}
-                    />
+                    <DeleteDropDown text='Card' itemDelete={() => removeCard(boardId, card?.id)} />
                 }
             </div>
 
