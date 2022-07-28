@@ -11,12 +11,17 @@ const AddBtn = ({ text, placeHolder, btnText, onSubmit, bgHover, width, defaultD
         // prevent auto refresh page by button click
         e.preventDefault();
 
-        // user input value send...
+
+        // 🟥🟥🟥 very very important... onSubmit become dynamic... But How...? 🤔😮🤯
+        // 🟨🟨🟨 this input value send... at the caller place (Parent) component - inside its JSX, 
+        // 🟨🟨🟨 where this AddBtn component is actually calling, by passing this onSubmit as a props...
+        // 🟨🟨🟨 for that reason this onSubmit become dynamic, for passing values at Parent component...
         if (onSubmit) onSubmit(inputValue);
 
+
         // reset at default state
-        setShowEdit(false);
-        setInputValue('');
+        setShowEdit(false); // after submit value, close editing/input option
+        setInputValue('');  // after submit value, clear input field
     }
 
 

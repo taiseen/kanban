@@ -9,7 +9,7 @@ const App = () => {
   return (
 
     // app holder
-    <main className='w-full h-screen flex flex-col bg-gray-100 select-none pb-4 md:pb-0'>
+    <main className='w-full h-screen flex flex-col bg-gray-100 select-none'>
 
       <header className='w-full p-5 border-b border-gray-400'>
         <h1 className='text-2xl lg:text-3xl font-extrabold tracking-wider'>
@@ -18,13 +18,13 @@ const App = () => {
       </header>
 
 
-      <section className='flex-auto w-full overflow-x-auto p-4'>
-        <div className=' min-w-fit h-full flex gap-4 flex-wrap justify-center md:justify-start'>
+      <section className='flex-auto w-full overflow-x-auto p-4 customScroll'>
+        <div className=' min-w-fit h-full flex gap-4 justify-center md:justify-start'>
           {
             boards?.map(board => <Board key={board.id} board={board} />)
           }
 
-          <div className=''>
+          <div>
             <AddBtn
               text='+ Add Board'
               placeHolder='Enter Board Title'

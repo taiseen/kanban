@@ -56,6 +56,10 @@ export const BoardCardItem = ({ children }) => {
         ]);
 
 
+    // store all data in localStorage + update localStorage, when boards are updated...
+    useEffect(() => localStorage.setItem('kanban', JSON.stringify(boards)), [boards]);
+
+
     const addBoard = title => setBoards(pre => [...pre, { id: Date.now() + Math.random(), title, cards: [] }]);
 
 
@@ -98,9 +102,8 @@ export const BoardCardItem = ({ children }) => {
         if (cardIndex < 0) return; // IF no card found, return nothing...
 
         // 🟥🟥🟥 3rd ==> remove tha specific Card from a specific Board + Update Board
-        // setBoards(pre => pre[boardIndex].cards.filter(({ id }) => id !== bid));
         const tempBoard = [...boards];                      // copy 
-        tempBoard[boardIndex].cards.splice(cardIndex, 1);   // delete
+        tempBoard[boardIndex].cards.splice(cardIndex, 1);   // delete / remove this index position number Data
         setBoards(tempBoard);                               // update 
     }
 
@@ -147,10 +150,6 @@ export const BoardCardItem = ({ children }) => {
 
         setBoards(tempBoard)                                        // update boards
     }
-
-
-    // store all data in local storage
-    useEffect(() => localStorage.setItem('kanban', JSON.stringify(boards)), [boards]);
 
 
     return (

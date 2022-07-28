@@ -24,8 +24,10 @@
 | 5| Component dynamic css styling passing     |
 | 6| Drag & Drop working functionality         |
 | 7| `draggable` + `onDragEnter` + `onDragEnd` attribute's  |
-| 8| Confirm Dialog Box with customization UI  |
-| 9| `Esc` Key press Event Listener For Closing Modal |
+| 8| Confirm Dialog Box with customization UI               |
+| 9| `Esc` Key press Event Listener For Closing Modal       |
+|10| data set + get form localStorage + live data update    |
+|11| input `onSubmit` props sent + dynamically value send into context api |
 
 
 ## Project Structure
@@ -58,6 +60,13 @@
     ├───tailwind.config.js
     └───yarn.lock
 ```
+
+
+## Components Relationship, inside component tree...
+<p align="center"> 
+  <img src='./public/KanbanComponentRelation.svg' />
+</p>
+
 
 ## Project Data Structure
 ```

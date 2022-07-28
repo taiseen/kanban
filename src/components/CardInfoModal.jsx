@@ -26,7 +26,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
 
     // Calculate total task completed percentage
-    const calculatePercentage = () => {
+    const calculatePercentage = _ => {
 
         if (values?.tasks?.length === 0) return 'w-0'
 
@@ -42,7 +42,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
     const addLabel = (text, color) => {
 
         const index = values?.labels?.findIndex(item => item.text === text);
-        if (index > -1) return;
+        if (index > -1) return; // if --> item already present in [array], do nothing... 
 
         // update labels...
         setValues({ ...values, labels: [...values.labels, { text, color }] });
@@ -51,13 +51,15 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
 
 
-    const removeLabel = (text) => {
+    const removeLabel = text => {
 
         // 1st | remove from array 
-        const afterRemoveLabel = values?.labels?.filter(item => item.text !== text)
+        // const afterRemoveLabel = values?.labels?.filter(item => item.text !== text)
 
-        // 2ns | update state variable
-        setValues({ ...values, labels: afterRemoveLabel });
+        // 2nd | update state variable
+        // setValues({ ...values, labels: afterRemoveLabel });
+
+        setValues(pre => ({ ...pre, labels: pre.labels?.filter(item => item.text !== text) }));
     }
 
 
@@ -85,12 +87,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
 
 
-    const removeTask = id => {
-
-        const afterRemoveTask = values?.tasks?.filter(item => item.id !== id);
-
-        setValues({ ...values, tasks: afterRemoveTask });
-    }
+    const removeTask = id => setValues(pre => ({ ...pre, tasks: pre.tasks?.filter(item => item.id !== id) }));
 
 
 
@@ -120,8 +117,8 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
     return (
         <section
             className='fixed top-0 right-0 left-0 bottom-0 p-4 z-20 bg-black/50 grid place-items-center'
-            // onClick={e => { e.stopPropagation(); setShowModal(false) }}
-            // if we add this then any click inside it close this modal
+        // onClick={e => { e.stopPropagation(); setShowModal(false) }}
+        // if we add this then any click inside it close this modal
         >
             <div className='bg-white w-full md:w-[650px] h-[80vh] overflow-y-auto relative rounded-lg customScroll'>
 

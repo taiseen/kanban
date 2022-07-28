@@ -28,7 +28,7 @@ const Board = ({ board }) => {
 
 
     return (
-        <section className='w-80 p-4 bg-white flex flex-col gap-5 rounded-md'>
+        <section className='h-full w-80 p-4 bg-white flex flex-col gap-5 rounded-md'>
 
             {/* Board Head */}
             <div className='flex items-center justify-between'>
