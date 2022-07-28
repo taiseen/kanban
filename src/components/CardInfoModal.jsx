@@ -173,7 +173,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                             type="date"
                             defaultValue={values?.date ? new Date(values?.date).toISOString().substring(0, 10) : ''}
                             // defaultValue={values?.date ? new Date(values?.date) : ''}
-                            onChange={e => setValues({ ...values, date: e.target.value.split('-').reverse().join('-') })}
+                            onChange={e => setValues({ ...values, date: e.target.value })} //.split('-').reverse().join('-')
                             className='p-3 border outline-none border-gray-400 rounded'
                         />
                     </div>
@@ -233,10 +233,10 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                         {
                             // ProgressBar with Percentage Number
                             values?.tasks?.length > 0 &&
-                            <div className='h-2.5 w-full rounded-md border border-gray-500 mx-2 mb-4'>
+                            <div className='h-2 w-full rounded border border-gray-500 mx-2 mb-4'>
                                 <div
                                     style={{ width: calculatePercentage() + '%' }}
-                                    className={`h-full rounded-md text-right relative
+                                    className={`h-full rounded text-right relative duration-200 ease-in-out
                                     ${values.tasks.length !== 0 && 'bg-blue-500'} 
                                     ${calculatePercentage() >= 100 && 'bg-green-600'} `}
                                 >
@@ -258,7 +258,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                                             type="checkbox"
                                             value={item.completed}
                                             checked={item.completed}
-                                            className='w-4 h-4 cursor-pointer'
+                                            className='w-5 h-5 cursor-pointer'
                                             onChange={e => updateTask(item.id, e.target.checked)}
                                         />
                                         <p className='text-lg'>{item.text}</p>
