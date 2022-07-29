@@ -128,6 +128,7 @@ export const BoardCardItem = ({ children }) => {
 
 
     const handleDragEnd = (bid, cid) => {
+        
         let s_bIndex, s_cIndex, d_bIndex, d_cIndex;
 
         s_bIndex = boards?.findIndex(({ id }) => id === bid);

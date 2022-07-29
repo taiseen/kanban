@@ -80,9 +80,9 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
         const index = values?.tasks?.findIndex(item => item.id === id);
         if (index < 0) return;
 
-        const tempTasks = [...values.tasks];
-        tempTasks[index].completed = completed;
-        setValues({ ...values, tasks: tempTasks });
+        const tempTasks = [...values.tasks];        // copy | keep clone of an [array]
+        tempTasks[index].completed = completed;     // update specific index value
+        setValues({ ...values, tasks: tempTasks }); // task full [array] override
     }
 
 
@@ -144,7 +144,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                             onSubmit={value => setValues({ ...values, title: value })}
                         />
                     </div>
-                    {/* This is very good For web development */}
+
                     {/* 🟡🟡🟡 UI For ==> Description 🟡🟡🟡 */}
                     <div className='mb-8'>
                         <div className='p-2 flex items-center gap-3'>
@@ -210,6 +210,7 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                                 )
                             }
                         </div>
+                        
                         <AddBtn
                             text={card.desc}
                             placeHolder='Enter Labels'
@@ -249,8 +250,10 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
 
                         <div className='space-y-2 mb-4'>
                             {
+                                // ✅✅✅ Check Box Input UI ✅✅✅ 
                                 values?.tasks?.map(item =>
                                     <div className='flex items-center gap-4 px-2' key={item.id}>
+                                        
                                         <input
                                             type="checkbox"
                                             value={item.completed}
@@ -258,11 +261,14 @@ const CardInfoModal = ({ setShowModal, card, boardId }) => {
                                             className='w-5 h-5 cursor-pointer'
                                             onChange={e => updateTask(item.id, e.target.checked)}
                                         />
+                                        
                                         <p className='text-lg'>{item.text}</p>
+
                                         <Trash
                                             onClick={() => removeTask(item.id)}
                                             className='ml-auto hover:text-red-500 duration-200 cursor-pointer'
                                         />
+                                        
                                     </div>
                                 )
                             }
